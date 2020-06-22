@@ -8,7 +8,7 @@ const bootstrap = async () => {
     try {
         const mongooseInstance = await mongoose.connect(
             'mongodb://localhost:27017/contactApp',
-            { useUnifiedTopology: true, useNewUrlParser: true }
+            { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }
         );
         mongooseInstance.set('debug', true);
 

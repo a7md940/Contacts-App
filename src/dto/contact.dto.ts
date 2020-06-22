@@ -11,28 +11,47 @@ export class ContactDto {
     static toDto(toConvert: Contact): ContactDto {
         const result = new ContactDto();
 
-        result.id = toConvert.id;
-        result.name = toConvert.name;
-        result.phone = toConvert.phone;
-        result.address = toConvert.address;
-        result.notes = toConvert.notes;
+        if (toConvert.id) {
+            result.id = toConvert.id;
+        } else {
+            result.id = null;
+        }
+
+        if (toConvert.name) {
+            result.name = toConvert.name;
+        } else {
+            result.name = null;
+        }
+
+        if (toConvert.phone) {
+            result.phone = toConvert.phone;
+        } else {
+            result.phone = null;
+        }
+
+        if (toConvert.address) {
+            result.address = toConvert.address;
+        } else {
+            result.address = null;
+        }
+
+        if (toConvert.notes) {
+            result.notes = toConvert.notes;
+        } else {
+            result.notes = null;
+        }
+
         
         return result;
     }
     
     static toModel(toConvert: ContactDto): Contact {
         const result = new Contact();
-        if (!toConvert.name) {
-            throw new ParameterException('Missing contact name, name is required.', ['name']);
-        }
-        if (!toConvert.phone) {
-            throw new ParameterException('Missing contact phone, phone is required.', ['phone']);
-        }
-        
-        result.name = toConvert.name;
-        result.phone = toConvert.phone;
-        result.address = toConvert.address;
-        result.notes = toConvert.notes;
+        toConvert.id && (result.id = toConvert.id);
+        toConvert.name && (result.name = toConvert.name.trim());
+        toConvert.phone && (result.phone = toConvert.phone.trim());
+        toConvert.address && (result.address = toConvert.address.trim());
+        toConvert.notes && (result.notes = toConvert.notes.trim());
 
         return result;
     }

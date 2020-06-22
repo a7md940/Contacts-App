@@ -2,10 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 
 import { ContactService } from "../@core/services";
 import { BaseController } from "./base-controller";
-import { ParameterException } from "../@core/exceptions";
+import { ParameterException, NotFoundException } from "../@core/exceptions";
 import { ContactDto, ContactSearchCriteriaDto } from '../dto';
 import { HttpStatusCode } from '../@utils';
-import { PagedList } from '../@core/models';
+import { PagedList, Contact } from '../@core/models';
 
 export class ContactController extends BaseController {
     private _contactService = new ContactService();
@@ -44,8 +44,8 @@ export class ContactController extends BaseController {
 
     createContact = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const contactModel = ContactDto.toModel(req.body);
-            const createdContact = await this._contactService.createContact(contactModel);
+            const contact = ContactDto.toModel(req.body);
+            const createdContact = await this._contactService.createContact(contact);
             
             res.status(HttpStatusCode.Ok)
             .json(createdContact);
@@ -54,6 +54,59 @@ export class ContactController extends BaseController {
             if (exc instanceof ParameterException) {
                 this.throwBadRequest(res, exc)
             }  else {
+                this.internalError(res, exc);
+            }
+        }
+    }
+
+    updateContact = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            if (!req.body || Object.keys(req.body).length == 0) {
+                throw new ParameterException(
+                    'You must provied some data to update',
+                    ['contact'],
+                    'errors.contact.updateContact.dataToUpdateIsMissing',
+                    'Nmq001y'
+                );
+            }
+            const updateContactRequestDto = req.body as ContactDto[] | ContactDto;
+            let contactsToUpdate: Contact | Contact[];
+            if (Array.isArray(updateContactRequestDto)) {
+                contactsToUpdate = updateContactRequestDto.map(ContactDto.toModel);
+            } else {
+                contactsToUpdate = ContactDto.toModel(updateContactRequestDto);
+            }
+
+            const updateResult = await this._contactService.updateContact(contactsToUpdate);
+
+            let responseDto;
+            if (Array.isArray(updateResult)) {
+                responseDto = updateResult.map(ContactDto.toDto);
+            } else {
+                responseDto = ContactDto.toDto(updateResult);
+            }
+            res.status(HttpStatusCode.Ok)
+            .json(responseDto);
+
+        } catch (exc) {
+            this.internalError(res, exc);
+        }
+    }
+
+    deleteContacts = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const deleteContactsRequestDto = req.body as string[];
+            const deletedCount = await this._contactService.deleteContact(deleteContactsRequestDto);
+
+            res.status(HttpStatusCode.Ok)
+            .json(deletedCount);
+
+        } catch (exc) {
+            if (exc instanceof ParameterException) {
+                this.throwBadRequest(res, exc);
+            } else if (exc instanceof NotFoundException) {
+                this.throwNotFound(res, exc);
+            } else {
                 this.internalError(res, exc);
             }
         }

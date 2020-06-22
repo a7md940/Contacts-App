@@ -5,7 +5,9 @@ import { ContactController } from '../controllers/contact.controller';
 const contactRouter = Router();
 const contactController = new ContactController();
 
-contactRouter.post('/create', contactController.createContact);
 contactRouter.post('/search', contactController.searchInContacts);
+contactRouter.post('/create', contactController.createContact);
+contactRouter.put('/update', contactController.updateContact);
+contactRouter.delete('/delete', contactController.deleteContacts);
 
 export { contactRouter };
