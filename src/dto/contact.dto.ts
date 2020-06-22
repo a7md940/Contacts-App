@@ -2,6 +2,7 @@ import { Contact } from "../@core/models";
 import { ParameterException } from "../@core/exceptions";
 
 export class ContactDto {
+    id: string;
     name: string;
     phone: string;
     address: string;
@@ -10,6 +11,7 @@ export class ContactDto {
     static toDto(toConvert: Contact): ContactDto {
         const result = new ContactDto();
 
+        result.id = toConvert.id;
         result.name = toConvert.name;
         result.phone = toConvert.phone;
         result.address = toConvert.address;

@@ -6,10 +6,12 @@ import * as os from 'os';
 
 const bootstrap = async () => {
     try {
-        await mongoose.connect(
+        const mongooseInstance = await mongoose.connect(
             'mongodb://localhost:27017/contactApp',
             { useUnifiedTopology: true, useNewUrlParser: true }
         );
+        mongooseInstance.set('debug', true);
+
         console.log('Mongoose connection established !!');
 
         app.listen(PORT, () => console.log(`App listening on ${os.hostname}:${PORT}`));
