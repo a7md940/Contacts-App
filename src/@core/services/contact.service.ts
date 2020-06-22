@@ -7,11 +7,17 @@ import { MongooseFilterQuery, FilterQuery } from "mongoose";
 export class ContactService {
     private _contactRepo = ContactRepository;
 
+    /**
+     * Search in contacts with some criteria
+     * @param searchCriteria Contact search criteria to search by.
+     * @returns {Promise<RowsAndCount<Contact>>} Promise of RowsAndCount<Contact>
+     */
     search = async (searchCriteria: ContactSearchCriteria): Promise<RowsAndCount<Contact>> => {
         let { orderBy, desc, pageSize, pageIndex, address, notes, name, phone } = searchCriteria;
+
+        const skip = pageIndex * pageSize;
         const $or: FilterQuery<Contact>[] = [];
         let $and: FilterQuery<Contact>[] = [];
-        const skip = pageIndex * pageSize;
 
         const query: MongooseFilterQuery<Contact> = {
             $or,
@@ -65,6 +71,12 @@ export class ContactService {
         return { rows: contacts.map(Contact.build), count: totalCount }
     }
 
+    /**
+     * Created a new contact.
+     * @param contact Contact attributes to create.
+     * @return {Promise<Contact>} Promise of new Contact.
+     * @throws { ParameterException } This contact is already exists.
+     */
     async createContact(contact: Contact): Promise<Contact> {
         try {
             const existingContact = await this._contactRepo.findOne({ name: { $eq: contact.name.trim() } })
