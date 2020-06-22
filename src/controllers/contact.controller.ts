@@ -28,7 +28,7 @@ export class ContactController extends BaseController {
             const { rows, count } = await this._contactService.search(searchCriteria)
             const pagedList = PagedList.build<ContactDto>(
                 rows.map(ContactDto.toDto),
-                searchCriteria.pageIndex,
+                searchCriteria.pageIndex, 
                 searchCriteria.pageSize,
                 count
             );
