@@ -1,13 +1,9 @@
 import mognoose, { Schema, Document, Model } from 'mongoose';
 import { User, Role } from '../../@core/models';
 import { enumToArray } from '../../@utils';
-import { getdbConnection } from './db-instance';
-
 interface UserModel extends Model<UserDoc> {
     build(user: Omit<User, 'id'>): UserDoc;
 }
-
-
 
 interface UserDoc extends Document {
     _id: string;

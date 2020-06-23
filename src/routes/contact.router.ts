@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { ContactController } from '../controllers/contact.controller';
+import { RequireAuthMiddleware } from '../middlewares';
 
 const contactRouter = Router();
 const contactController = new ContactController();

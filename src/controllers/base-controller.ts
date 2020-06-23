@@ -12,6 +12,10 @@ export class BaseController {
         .json(exc);
     }
 
+    protected throwUnauthorized(res: Response, exc: any) {
+        res.status(HttpStatusCode.Unauthorized)
+        .json(exc);
+    }
     protected internalError(res: Response, exc: any) {
         console.error(exc);
         res.status(HttpStatusCode.InternalError)
