@@ -1,17 +1,12 @@
 import app from './app';
 import { PORT } from './config';
-import mongoose from 'mongoose';
 import { MongoNetworkError } from 'mongodb';
 import * as os from 'os';
+import { connectDatabase } from './presistence/mongo/db-instance';
 
 const bootstrap = async () => {
     try {
-        const mongooseInstance = await mongoose.connect(
-            'mongodb://localhost:27017/contactApp',
-            { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }
-        );
-        mongooseInstance.set('debug', true);
-
+        const mongoose = await connectDatabase();
         console.log('Mongoose connection established !!');
 
         app.listen(PORT, () => console.log(`App listening on ${os.hostname}:${PORT}`));

@@ -1,6 +1,7 @@
 import mognoose, { Schema, Document, Model } from 'mongoose';
 import { User, Role } from '../../@core/models';
 import { enumToArray } from '../../@utils';
+import { getdbConnection } from './db-instance';
 
 interface UserModel extends Model<UserDoc> {
     build(user: Omit<User, 'id'>): UserDoc;
@@ -22,7 +23,8 @@ const UserSchema = new Schema<User>({
         type: String,
         required: true,
         trim: true,
-        unique: true
+        unique: true,
+        indexes: true
     },
     password: {
         type: String,
@@ -37,13 +39,15 @@ const UserSchema = new Schema<User>({
     email: {
         type: String,
         trim: true,
-        unique: true
+        unique: true,
+        indexes: true
     },
     roles: {
         type: Number,
         enum: enumToArray(Role),
     }
 });
+
 
 UserSchema.statics.build = (User: User) => new UserRepository(User);
 
