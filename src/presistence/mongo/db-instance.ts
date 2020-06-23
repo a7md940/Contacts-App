@@ -1,4 +1,5 @@
 import { ConnectionOptions, connect, Connection } from 'mongoose';
+import * as config from '../../config';
 
 const MONGO_URI = process.env.MONGO_URI || `mongodb://localhost:27017/contactApp`;
 const dbConnectionOptoins: ConnectionOptions = {
@@ -8,7 +9,9 @@ const dbConnectionOptoins: ConnectionOptions = {
     useCreateIndex: true,
 };
 const setMongooseOptions = async (instance: any): ReturnType<typeof connect> => {
-    instance.set('debug', true);
+    if (!config.PRODUCTION) {
+        instance.set('debug', true);
+    }
     return instance;
 }
 
