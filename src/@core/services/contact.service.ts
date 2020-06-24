@@ -60,7 +60,7 @@ export class ContactService {
         }
         
         const contactsPromise = this._contactRepo.find(query)
-        .sort({ [orderBy]: desc ? -1 : 1 })
+        .sort({ [orderBy]: desc ? 1 : -1 })
         .limit(pageSize)
         .skip(skip)
         .then(x => x.map(Contact.build));
