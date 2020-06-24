@@ -1,8 +1,17 @@
+<div class="row">
+    <div class="col-12 p-0">
+        <div class="search-wrapper bg-white m-1 p-2 px-3 rounded">
+            <app-contact-search-form (onFormSubmit)="onSearch($event)">
+            </app-contact-search-form>
+        </div>
+    </div>
+</div>
+
 <ng-container *ngIf="contacts">
     <div class="row">
         <ng-container *ngFor="let contact of contacts.collection">
-            <div class="col-12 col-sm-6 col-md-4 p-sm-1">
-                <app-contact-list-item [contact]="contact">
+            <div class="col-12 col-sm-6 col-md-4 p-sm-1 my-1">
+                <app-contact-list-item class="contact-item d-block" [contact]="contact">
                 </app-contact-list-item>
             </div>
             </ng-container>

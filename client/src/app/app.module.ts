@@ -10,13 +10,15 @@ import { ContactListItemComponent } from './contact-list-item/contact-list-item.
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { CreateContactComponent } from './create-contact/create-contact.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ContactSearchFormComponent } from './contact-search-form/contact-search-form.component';
 @NgModule({
   declarations: [
     AppComponent,
     ContactListItemComponent,
     ContactListComponent,
     CreateContactComponent,
-    NavBarComponent
+    NavBarComponent,
+    ContactSearchFormComponent
   ],
   imports: [
     BrowserModule,

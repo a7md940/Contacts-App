@@ -1,4 +1,3 @@
 export class ExactSearch {
-    value: string;
-    exact: boolean;
+    constructor(public value?: string, public exact?: boolean) {}
 }

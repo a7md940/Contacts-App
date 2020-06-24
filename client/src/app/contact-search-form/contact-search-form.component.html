@@ -1,0 +1,49 @@
+<form [formGroup]="form" (ngSubmit)="search()">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <div class="form-group">
+                <label class="text-capitalize">
+                    name
+                </label>
+                <input type="text" formControlName="name" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <div class="form-group">
+                <label class="text-capitalize">
+                    phone
+                </label>
+                <input type="text" formControlName="phone" class="form-control">
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="form-group">
+                <label class="text-capitalize">
+                    address
+                </label>
+                <input type="text" formControlName="address" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <div class="form-group">
+                <label class="text-capitalize">
+                    notes
+                </label>
+                <input type="text" formControlName="notes" class="form-control">
+            </div>
+        
+        </div>
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-light text-capitalize" (click)="reset();">
+            Reset
+        </button>
+
+        <button type="submit" class="mx-2 btn btn-primary text-capitalize">
+            Search
+        </button>
+    </div>
+</form>

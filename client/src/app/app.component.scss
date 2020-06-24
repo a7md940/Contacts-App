@@ -1,4 +1,4 @@
-@import './../../node_modules/bootstrap/scss/bootstrap.scss';;
+@import './../assets/scss/bootstrap';
 @import './../assets/scss/common';
 @import './../assets/scss/fonts';
  
@@ -7,4 +7,5 @@
     min-height: calc(100vh - 65px);
     overflow-y: scroll;
     padding: 1rem;
+    background-color: #f9f9f9;
 }
