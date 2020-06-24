@@ -9,6 +9,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/contact', contactRouter);
+app.use('/api/v1/contact', contactRouter);
 
-export default app;
+export default app; 

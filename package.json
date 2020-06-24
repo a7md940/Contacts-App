@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start:dev": "nodemon ./src/index.ts"
+    "start:dev": "nodemon --ignore './client/' ./src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/a7md940/Contacts-App#readme",
   "dependencies": {
+    "@angular/core": "^9.1.11",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.19"
+    "mongoose": "^5.9.19",
+    "ng-click-outside": "^6.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
@@ -29,7 +31,13 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.7.27",
     "@types/node": "^14.0.13",
+    "babel-node": "0.0.1-security",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "client/*"
+    ]
   }
 }

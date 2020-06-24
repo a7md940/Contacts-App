@@ -1,0 +1,27 @@
+.input-reset {
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding:  2px 5px;
+    display: inline-block;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+ 
+    &:focus,
+    &:active {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .3);
+    }
+
+}
+
+textarea.input-reset {
+    height: 30px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+} 

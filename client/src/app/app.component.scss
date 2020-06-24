@@ -1,0 +1,10 @@
+@import './../../node_modules/bootstrap/scss/bootstrap.scss';;
+@import './../assets/scss/common';
+@import './../assets/scss/fonts';
+ 
+.app-wrapper {
+    height: calc(100vh - 65px);
+    min-height: calc(100vh - 65px);
+    overflow-y: scroll;
+    padding: 1rem;
+}

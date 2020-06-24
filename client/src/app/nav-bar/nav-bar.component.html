@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" [routerLink]="'/'">
+        Contacts App
+    </a>
+
+    <ul class="navbar-nav mr-auto d-flex flex-row">
+        <li class="nav-item m-1 cursor-pointer"
+            [routerLink]="'/'"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link">
+              Home
+              <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        <li class="nav-item m-1 cursor-pointer"
+            [routerLink]="['create']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link">
+              Create contact
+            </a>
+        </li>
+      </ul>
+
+  </nav>

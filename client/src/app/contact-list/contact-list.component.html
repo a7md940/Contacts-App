@@ -1,0 +1,10 @@
+<ng-container *ngIf="contacts">
+    <div class="row">
+        <ng-container *ngFor="let contact of contacts.collection">
+            <div class="col-12 col-sm-6 col-md-4 p-sm-1">
+                <app-contact-list-item [contact]="contact">
+                </app-contact-list-item>
+            </div>
+            </ng-container>
+    </div>
+</ng-container>

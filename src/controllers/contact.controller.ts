@@ -89,7 +89,11 @@ export class ContactController extends BaseController {
             .json(responseDto);
 
         } catch (exc) {
-            this.internalError(res, exc);
+            if (exc instanceof NotFoundException) {
+                this.throwNotFound(res, exc);
+            } else {
+                this.internalError(res, exc);
+            }
         }
     }
 

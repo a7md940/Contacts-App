@@ -114,7 +114,7 @@ export class ContactService {
      */
     async updateContact(contact: Contact[] | Contact): Promise<Contact | Contact[]> {
         try {
-            if (Array.isArray(contact)) {
+            if (Array.isArray(contact) && contact.length > 1) {
                 const contacts = contact;
                 const contactsToUpdate = await this._contactRepo.find({ _id: { $in: contacts.map(x => x.id) } } );
                 if (contactsToUpdate.length != contacts.length) {
@@ -126,14 +126,18 @@ export class ContactService {
                 
                 const updatedResult = await Promise.all(
                     contactsToUpdate.map(contact => contact
-                        .updateOne(contacts.find(c => c.id == contact._id), { new: false, omitUndefined: true })
-                        .getUpdate()
+                        .update(contacts.find(c => c.id == contact._id))
                     )
                 );
 
                 return updatedResult;
 
             } else {
+                if (Array.isArray(contact)) {
+                    [contact] = contact;
+                } else {
+                    contact = contact;
+                }
                 const existingContact = await this._contactRepo.findById(contact.id);
                 if (!existingContact) {
                     throw new NotFoundException(
@@ -151,10 +155,8 @@ export class ContactService {
                 }
     
                 if (allowUpdate) {
-                    const updatedResult = await existingContact
-                    .updateOne(contact, { new: false, omitUndefined: true })
-                    .getUpdate();
-                    return Contact.build(updatedResult);
+                    await existingContact.update(contact);
+                    return Contact.build(contact);
                 } else {
                     return Contact.build(existingContact);
                 }
