@@ -8,8 +8,9 @@ import { PagedList, Contact, ContactSearchRequest, PAGE_INDEX, PAGE_SIZE } from 
   styleUrls: ['./contact-list.component.scss']
 })
 export class ContactListComponent implements OnInit {
-  contacts: PagedList<Contact>;
+  contacts = new PagedList<Contact>();
   loadingContacts: boolean;
+  searchCriteria = new ContactSearchRequest();
   constructor(
     private _contactService: ContactService
   ) { }
@@ -18,9 +19,9 @@ export class ContactListComponent implements OnInit {
     this._loadContacts();
   }
 
-  private _loadContacts(): void {
+  private _loadContacts(criteria?: ContactSearchRequest): void {
     this.loadingContacts = true;
-    this._contactService.getContactList()
+    this._contactService.getContactList(criteria)
     .subscribe(
       (pagedList) => {
         this.contacts = pagedList;
@@ -35,18 +36,14 @@ export class ContactListComponent implements OnInit {
   onSearch(searchCriteria: ContactSearchRequest) {
     searchCriteria.pageIndex = PAGE_INDEX;
     searchCriteria.pageSize = PAGE_SIZE;
+    this.searchCriteria = searchCriteria;
 
-    this.loadingContacts = true;
-    this._contactService.getContactList(searchCriteria)
-    .subscribe(
-      (pagedList) => {
-        this.contacts = pagedList;
-        this.loadingContacts = false;
-      },
-      (exc) =>{
-        this.loadingContacts = false;
-      }
-    )
+    this._loadContacts(this.searchCriteria);
+  }
+
+  paginate(page: number) {
+    this.searchCriteria.pageIndex = page - 1;
+    this._loadContacts(this.searchCriteria);
   }
 
 }

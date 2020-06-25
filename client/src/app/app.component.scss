@@ -2,6 +2,13 @@
 @import './../assets/scss/common';
 @import './../assets/scss/fonts';
  
+@import "../../node_modules/ag-grid-community/src/styles/ag-grid.scss";
+@import "../../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
+
+.ag-theme-alpine {
+    @include ag-theme-alpine();
+}
+
 .app-wrapper {
     height: calc(100vh - 65px);
     min-height: calc(100vh - 65px);

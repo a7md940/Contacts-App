@@ -7,6 +7,16 @@
     </div>
 </div>
 
+<ng-container *ngIf="contacts.totalCount > contacts.collection.length">
+    <ngb-pagination
+        class="d-inline-block mt-3"
+        [page]="1"
+        [pageSize]="contacts.pageSize"
+        [collectionSize]="contacts.totalCount"
+        (pageChange)="paginate($event)">
+    </ngb-pagination>
+</ng-container>
+
 <ng-container *ngIf="contacts">
     <div class="row">
         <ng-container *ngFor="let contact of contacts.collection">
@@ -14,6 +24,7 @@
                 <app-contact-list-item class="contact-item d-block" [contact]="contact">
                 </app-contact-list-item>
             </div>
-            </ng-container>
+        </ng-container>
     </div>
+
 </ng-container>
