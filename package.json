@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/a7md940/Contacts-App#readme",
   "dependencies": {
-    "@angular/core": "^9.1.11",
+    "@angular/core": "^11.0.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
